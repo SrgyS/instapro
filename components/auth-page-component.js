@@ -83,12 +83,12 @@ export function renderAuthPageComponent({ appEl, setUser }) {
         const password = document.getElementById("password-input").value;
 
         if (!login) {
-          alert("Введите логин");
+          setError("Введите логин");
           return;
         }
 
         if (!password) {
-          alert("Введите пароль");
+          setError("Введите пароль");
           return;
         }
 
@@ -112,17 +112,17 @@ export function renderAuthPageComponent({ appEl, setUser }) {
           return;
         }
         if (!login) {
-          alert("Введите логин");
+          setError("Введите логин");
           return;
         }
 
         if (!password) {
-          alert("Введите пароль");
+          setError("Введите пароль");
           return;
         }
 
         if (!imageUrl) {
-          alert("Не выбрана фотография");
+          setError("Не выбрана фотография");
           return;
         }
 

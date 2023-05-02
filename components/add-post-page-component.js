@@ -1,6 +1,10 @@
+import { addPost } from "../api.js";
 import { renderHeaderComponent } from "./header-component.js";
+import { renderUploadImageComponent } from "./upload-image-component.js";
+import {getToken} from "../index.js"
 
-export function renderAddPostPageComponent({ appEl, onAddPostClick }) {
+export function renderAddPostPageComponent({ appEl, onAddPostClick, getToken }) {
+  let imageUrl = "";
   const render = () => {
     // TODO: Реализовать страницу добавления поста
     const appHtml = `
@@ -24,6 +28,7 @@ export function renderAddPostPageComponent({ appEl, onAddPostClick }) {
             Опишите фотографию:
             <textarea class="input textarea" rows="4"></textarea>
             </label>
+            <div class="form-error"></div>
             <button class="button" id="add-button">Добавить</button>
         </div>
       </div>
@@ -36,11 +41,43 @@ export function renderAddPostPageComponent({ appEl, onAddPostClick }) {
       element: document.querySelector(".header-container"),
     });
 
-    document.getElementById("add-button").addEventListener("click", () => {
-      onAddPostClick({
-        description: "Описание картинки",
-        imageUrl: "https://image.png",
+    const setError = (message) => {
+      appEl.querySelector(".form-error").textContent = message;
+    };
+
+    const uploadImageContainer = appEl.querySelector(".upload-image-container");
+
+    if (uploadImageContainer) {
+      renderUploadImageComponent({
+        element: appEl.querySelector(".upload-image-container"),
+        onImageUrlChange(newImageUrl) {
+          imageUrl = newImageUrl;
+        },
       });
+    } 
+
+    document.getElementById("add-button").addEventListener("click", () => {
+      setError("");
+
+      const description = document.querySelector(".textarea").value
+
+      if (!imageUrl) {
+        setError("Не выбрана фотография");
+        return;
+      }
+
+      if (!description) {
+        setError("Добавьте описание к фото");
+        return;
+      }
+     
+
+      onAddPostClick({
+        description: description,
+        imageUrl: imageUrl,
+      });
+
+      // addPost({description: description, imageUrl: imageUrl, token})
     });
   };
 
