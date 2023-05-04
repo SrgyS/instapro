@@ -1,5 +1,5 @@
 import { goToPage, logout, user } from "../index.js";
-import { ADD_POSTS_PAGE, AUTH_PAGE, POSTS_PAGE } from "../routes.js";
+import { ADD_POSTS_PAGE, AUTH_PAGE, POSTS_PAGE, USER_POSTS_PAGE } from "../routes.js";
 
 export function renderHeaderComponent({ element }) {
   element.innerHTML = `
@@ -14,7 +14,7 @@ export function renderHeaderComponent({ element }) {
       </button>
       ${
         user
-          ? `<button title="${user.name}" class="header-button logout-button">Выйти</button>`
+          ? `<button title="${user.name}" class="header-button logout-button"><img src="${user.imageUrl}" class="post-header__user-image">Выйти</button>`
           : ""
       }  
       </button>
@@ -37,6 +37,13 @@ export function renderHeaderComponent({ element }) {
   });
 
   element.querySelector(".logout-button")?.addEventListener("click", logout);
+  element.querySelector("img.post-header__user-image")?.addEventListener("click", (event) => {
+    event.stopPropagation()
+    console.log(user._id)
+    goToPage(USER_POSTS_PAGE, {
+      userId: user._id
+    });
+  })
 
   return element;
 }

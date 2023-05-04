@@ -125,6 +125,8 @@ export function addLike({token, id}) {
   });
 }
 
+//  Удаляет лайк
+
 export function removeLike({token, id}) {
   return fetch(postsHost + "/" + id + "/dislike", {
     method: "POST",

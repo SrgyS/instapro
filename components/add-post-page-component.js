@@ -77,7 +77,7 @@ export function renderAddPostPageComponent({ appEl, onAddPostClick, getToken }) 
         imageUrl: imageUrl,
       });
 
-      // addPost({description: description, imageUrl: imageUrl, token})
+      addPost({description: description, imageUrl: imageUrl, token})
     });
   };
 

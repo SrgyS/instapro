@@ -31,6 +31,8 @@
   line-height: 18px;
   font-weight: 500;
   cursor: pointer;
+  display: flex;
+  align-items: center;
 }
 
 .logout-button {
@@ -91,6 +93,7 @@
   padding-left: 0px;
   padding-bottom: 5px;
   cursor: pointer;
+  text-align: left;
 }
 
 .user-name {
@@ -163,6 +166,7 @@
 
 .form-error {
   color: red;
+  display: block;
 }
 
 .form-footer {
