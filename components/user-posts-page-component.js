@@ -1,7 +1,8 @@
 import { renderHeaderComponent } from "./header-component.js";
-import { posts, goToPage } from "../index.js";
+import { posts, goToPage, user } from "../index.js";
 import { USER_POSTS_PAGE } from "../routes.js";
-
+import { initLikeButtons } from "../helpers.js";
+import { addLike, removeLike } from "../api.js";
 export function  renderUserPostsPageComponent({appEl}) {
     console.log("Актуальный список постов:", posts);
 
@@ -64,4 +65,5 @@ export function  renderUserPostsPageComponent({appEl}) {
           });
         });
       }
+      initLikeButtons(posts, user, addLike, removeLike)
     }
