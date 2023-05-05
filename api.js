@@ -35,7 +35,7 @@ export function registerUser({ login, password, name, imageUrl }) {
     }),
   }).then((response) => {
     if (response.status === 400) {
-      throw new Error("Такой пользователь уже существует");
+      throw new Error("Этот login занят");
     }
     return response.json();
   });

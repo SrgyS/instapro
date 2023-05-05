@@ -108,7 +108,7 @@ export function renderAuthPageComponent({ appEl, setUser }) {
         const name = document.getElementById("name-input").value;
         const password = document.getElementById("password-input").value;
         if (!name) {
-          alert("Введите имя");
+          setError("Введите имя");
           return;
         }
         if (!login) {
@@ -137,6 +137,7 @@ export function renderAuthPageComponent({ appEl, setUser }) {
           })
           .catch((error) => {
             console.warn(error);
+            document.getElementById('login-input').style.border = "2px solid red";
             setError(error.message);
           });
       }
