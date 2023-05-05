@@ -1,9 +1,8 @@
 import { USER_POSTS_PAGE} from "../routes.js";
 import { renderHeaderComponent } from "./header-component.js";
 import { posts, goToPage, user } from "../index.js";
-// import { initLikeButtons, formatDateDistanceToNow} from "../helpers.js";
+import { initLikeButtons, formatDateDistanceToNow} from "../helpers.js";
 import { addLike, removeLike } from "../api.js";
-import { initLikeButtons} from "../helpers.js";
 
 export function renderPostsPageComponent({ appEl }) {
 
@@ -38,7 +37,7 @@ const postsHTML = posts
     ${decodeURIComponent(post.description)}
   </p>
   <p class="post-date">
-    {formatDateDistanceToNow(new Date(post.createdAt))}
+    ${formatDateDistanceToNow(new Date(post.createdAt))}
   </p>
 </li>`
 })

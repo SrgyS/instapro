@@ -1,6 +1,6 @@
 import { getToken} from "./index.js";
-// import { formatDistanceToNow } from "date-fns";
-// import ru from "date-fns/locale/ru";
+import { formatDistanceToNow } from "date-fns";
+import ru from "date-fns/locale/ru";
 
 export function saveUserToLocalStorage(user) {
   window.localStorage.setItem("user", JSON.stringify(user));
@@ -87,3 +87,7 @@ export function initLikeButtons(posts, user, addLike, removeLike) {
     });
   });
 }
+
+export const formatDateDistanceToNow = (date) => {
+  return formatDistanceToNow(date, { locale: ru, addSuffix: true })
+  }

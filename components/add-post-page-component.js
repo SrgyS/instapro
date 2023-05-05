@@ -2,7 +2,7 @@ import { addPost } from "../api.js";
 import { renderHeaderComponent } from "./header-component.js";
 import { renderUploadImageComponent } from "./upload-image-component.js";
 import { getToken, goToPage } from "../index.js";
-import { POSTS_PAGE, USER_POSTS_PAGE } from "../routes.js";
+import { POSTS_PAGE } from "../routes.js";
 
 
 export function renderAddPostPageComponent({ appEl, onAddPostClick }) {
@@ -79,7 +79,7 @@ console.log(description)
 
       addPost({description: description, imageUrl: imageUrl,  token: getToken()})
       .then(() => {
-        // вызываем render после успешного добавления поста
+        // загружаем страницу постов после успешного добавления поста
         goToPage(POSTS_PAGE);
       })
       .catch((error) => {

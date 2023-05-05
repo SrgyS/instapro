@@ -1,9 +1,9 @@
 import { renderHeaderComponent } from "./header-component.js";
 import { posts, goToPage, user, getToken } from "../index.js";
-import { ADD_POSTS_PAGE, USER_POSTS_PAGE } from "../routes.js";
-// import { initLikeButtons, formatDateDistanceToNow } from "../helpers.js";
+import { USER_POSTS_PAGE } from "../routes.js";
+import { initLikeButtons, formatDateDistanceToNow } from "../helpers.js";
 import { addLike, removeLike, deletePost } from "../api.js";
-import { initLikeButtons } from "../helpers.js";
+
 export function  renderUserPostsPageComponent({appEl}) {
     console.log("Актуальный список постов:", posts);
 
@@ -16,6 +16,7 @@ export function  renderUserPostsPageComponent({appEl}) {
           <p class="post-header__user-name">${post.user.name}</p>
       </div>
       <div class="post-image-container">
+      <img class="heart heart-like" src="./assets/images/heart-like.svg" alt="heart">
         <img class="post-image" src="${post.imageUrl}">
       </div>
       <div class="post-likes">
@@ -35,7 +36,7 @@ export function  renderUserPostsPageComponent({appEl}) {
         ${decodeURIComponent(post.description)}
       </p>
       <p class="post-date">
-      {formatDateDistanceToNow(new Date(post.createdAt))}
+      ${formatDateDistanceToNow(new Date(post.createdAt))}
       </p>
     </li>`
     })

@@ -259,3 +259,17 @@
 	        animation: puff-in-center 0.7s cubic-bezier(0.470, 0.000, 0.745, 0.715) both;
           width: 80px;
 }
+
+@media (max-width: 450px) {
+  .page-header{
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  .logout-button {
+    width:auto;
+  }
+  .logo {
+    margin-right: 240px;
+  }
+
+}
