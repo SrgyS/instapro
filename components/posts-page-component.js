@@ -1,9 +1,9 @@
 import { USER_POSTS_PAGE} from "../routes.js";
 import { renderHeaderComponent } from "./header-component.js";
 import { posts, goToPage, user } from "../index.js";
-import { initLikeButtons, formatDateDistanceToNow} from "../helpers.js";
+// import { initLikeButtons, formatDateDistanceToNow} from "../helpers.js";
 import { addLike, removeLike } from "../api.js";
-
+import { initLikeButtons} from "../helpers.js";
 
 export function renderPostsPageComponent({ appEl }) {
 
@@ -20,6 +20,7 @@ const postsHTML = posts
       <p class="post-header__user-name">${post.user.name}</p>
   </div>
   <div class="post-image-container">
+  <img class="heart heart-like" src="./assets/images/heart-like.svg" alt="heart">
     <img class="post-image" src="${post.imageUrl}">
   </div>
   <div class="post-likes">
@@ -34,10 +35,10 @@ const postsHTML = posts
   <div class="form-error"></div>
   <p class="post-text">
     <span class="user-name">${post.user.name}</span>
-    ${post.description}
+    ${decodeURIComponent(post.description)}
   </p>
   <p class="post-date">
-    ${formatDateDistanceToNow(new Date(post.createdAt))}
+    {formatDateDistanceToNow(new Date(post.createdAt))}
   </p>
 </li>`
 })
@@ -63,6 +64,7 @@ const postsHTML = posts
 
   for (let userEl of document.querySelectorAll(".post-header")) {
     userEl.addEventListener("click", () => {
+      console.log(userEl.dataset.userId)
       goToPage(USER_POSTS_PAGE, {
         userId: userEl.dataset.userId,
       });

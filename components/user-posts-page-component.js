@@ -1,16 +1,15 @@
 import { renderHeaderComponent } from "./header-component.js";
-import { posts, goToPage, user } from "../index.js";
-import { USER_POSTS_PAGE } from "../routes.js";
-import { initLikeButtons, formatDateDistanceToNow } from "../helpers.js";
-import { addLike, removeLike } from "../api.js";
-
+import { posts, goToPage, user, getToken } from "../index.js";
+import { ADD_POSTS_PAGE, USER_POSTS_PAGE } from "../routes.js";
+// import { initLikeButtons, formatDateDistanceToNow } from "../helpers.js";
+import { addLike, removeLike, deletePost } from "../api.js";
+import { initLikeButtons } from "../helpers.js";
 export function  renderUserPostsPageComponent({appEl}) {
     console.log("Актуальный список постов:", posts);
 
     const postsHTML = posts
     .map((post) => {
-      const likedUserNames = post.likes.map(obj => obj.name)
-      const likeCount = likedUserNames.length
+      const likedUserNames = post.likes.map(like => like.name)
       return `  <li class="post">
       <div class="post-header" data-user-id="${post.user.id}">
           <img src="${post.user.imageUrl}" class="posts-user-header__user-image">
@@ -21,22 +20,22 @@ export function  renderUserPostsPageComponent({appEl}) {
       </div>
       <div class="post-likes">
         <button data-post-id="${post.id}" class="like-button">
-          <img src="./assets/images/${post.isLiked ? 'like-active.svg' : 'like-not-active.svg'}">
-         
+          <img src="./assets/images/${post.isLiked ? 'like-active.svg' : 'like-not-active.svg'}"> 
         </button>
         <p class="post-likes-text">
-          Нравится: <strong>${likeCount ? likedUserNames[0] : 0} </strong>
-          ${likeCount > 1 ? `и <strong>еще ${likeCount - 1}</strong>`: ''}
-         
+          Нравится: <strong>${likedUserNames.length ? likedUserNames[0] : 0} </strong>
+          ${likedUserNames.length > 1 ? `и <strong>еще ${likedUserNames.length - 1}</strong>`: ''}
         </p>
       </div>
+      ${user && user._id === post.user.id ? `<button class="delete-button button
+      ">Удалить</button>`: ""}
       <div class="form-error"></div>
       <p class="post-text">
         <span class="user-name">${post.user.name}</span>
-        ${post.description}
+        ${decodeURIComponent(post.description)}
       </p>
       <p class="post-date">
-      ${formatDateDistanceToNow(new Date(post.createdAt))}
+      {formatDateDistanceToNow(new Date(post.createdAt))}
       </p>
     </li>`
     })
@@ -68,4 +67,28 @@ export function  renderUserPostsPageComponent({appEl}) {
         });
       }
       initLikeButtons(posts, user, addLike, removeLike)
-    }
+const deleteButtonElements = document.querySelectorAll(".delete-button")
+
+deleteButtonElements.forEach((button) => {
+  button.addEventListener("click", (event) => {
+    event.stopPropagation();
+    const postId = button.parentElement.querySelector('.like-button').dataset.postId;
+
+    deletePost({token: getToken(), id: postId})
+    .then(() => {
+      // загружаем посты пользователя после удачного удаления
+      goToPage(USER_POSTS_PAGE, {
+        userId: user._id
+      });
+    })
+    .catch((error) => {
+      setError("Не удалось удалить пост");
+      console.error(error);
+    });
+   
+    
+    })
+  })
+}
+
+    

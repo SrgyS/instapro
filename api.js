@@ -138,3 +138,16 @@ export function removeLike({token, id}) {
     return response.json();
   });
 }
+//  Удаляет пост
+
+export function deletePost({token, id}) {
+  return fetch(postsHost + "/" + id, {
+    method: "DELETE",
+    headers: {
+      Authorization: token,
+    },
+   }) 
+  .then((response) => {
+    return response.json();
+  });
+}

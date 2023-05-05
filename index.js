@@ -75,7 +75,6 @@ export const goToPage = (newPage, data) => {
         .then((newPosts) => {
           page = USER_POSTS_PAGE;
           posts = newPosts;
-          console.log(posts)
           renderApp();
         })
         .catch((error) => {
@@ -126,10 +125,10 @@ export const renderApp = () => {
       appEl,
       onAddPostClick({ description, imageUrl }) {
         // TODO: реализовать добавление поста в API
-        addPost({token: getToken(), description, imageUrl})
+        // addPost({token: getToken(), description, imageUrl})
         console.log("Добавляю пост...", { description, imageUrl });
         goToPage(POSTS_PAGE);
-      },
+      }, 
     });
   }
 

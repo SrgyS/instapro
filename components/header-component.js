@@ -39,7 +39,6 @@ export function renderHeaderComponent({ element }) {
   element.querySelector(".logout-button")?.addEventListener("click", logout);
   element.querySelector("img.post-header__user-image")?.addEventListener("click", (event) => {
     event.stopPropagation()
-    console.log(user._id)
     goToPage(USER_POSTS_PAGE, {
       userId: user._id
     });

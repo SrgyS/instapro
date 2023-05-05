@@ -1,10 +1,16 @@
 import { addPost } from "../api.js";
 import { renderHeaderComponent } from "./header-component.js";
 import { renderUploadImageComponent } from "./upload-image-component.js";
-import {getToken} from "../index.js"
+import { getToken, goToPage } from "../index.js";
+import { POSTS_PAGE, USER_POSTS_PAGE } from "../routes.js";
 
-export function renderAddPostPageComponent({ appEl, onAddPostClick, getToken }) {
+
+export function renderAddPostPageComponent({ appEl, onAddPostClick }) {
   let imageUrl = "";
+  const setError = (message) => {
+    appEl.querySelector(".form-error").textContent = message;
+  };
+
   const render = () => {
     // TODO: Реализовать страницу добавления поста
     const appHtml = `
@@ -41,10 +47,6 @@ export function renderAddPostPageComponent({ appEl, onAddPostClick, getToken }) 
       element: document.querySelector(".header-container"),
     });
 
-    const setError = (message) => {
-      appEl.querySelector(".form-error").textContent = message;
-    };
-
     const uploadImageContainer = appEl.querySelector(".upload-image-container");
 
     if (uploadImageContainer) {
@@ -58,9 +60,8 @@ export function renderAddPostPageComponent({ appEl, onAddPostClick, getToken }) 
 
     document.getElementById("add-button").addEventListener("click", () => {
       setError("");
-
-      const description = document.querySelector(".textarea").value
-
+      const description = encodeURIComponent(document.querySelector(".textarea").value)
+console.log(description)
       if (!imageUrl) {
         setError("Не выбрана фотография");
         return;
@@ -70,14 +71,21 @@ export function renderAddPostPageComponent({ appEl, onAddPostClick, getToken }) 
         setError("Добавьте описание к фото");
         return;
       }
-     
-
+    
       onAddPostClick({
         description: description,
         imageUrl: imageUrl,
       });
 
-      addPost({description: description, imageUrl: imageUrl, token})
+      addPost({description: description, imageUrl: imageUrl,  token: getToken()})
+      .then(() => {
+        // вызываем render после успешного добавления поста
+        goToPage(POSTS_PAGE);
+      })
+      .catch((error) => {
+        setError("Не удалось добавить пост");
+        console.error(error);
+      });
     });
   };
 
