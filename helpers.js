@@ -39,14 +39,11 @@ export function initLikeButtons(posts, user, addLike, removeLike) {
         post.isLiked = !post.isLiked;
         
         if (isPostImage) {
-          
-          const heartEl = postEl.querySelector(".heart")
-          heartEl.src = `./assets/images/${post.isLiked ? "heart-like.svg" : "heart-dislike.svg"}`;
-          heartEl.classList.add("puff-in-center")
-         setTimeout(()=>{
-          heartEl.classList.remove("puff-in-center")
-         }, 1000);
-         }
+          const heartEl = postEl.querySelector(".heart");
+          post.isLiked ? (heartEl.style.display = "block"
+                          , heartEl.classList.add("heartbeat")
+                          , setTimeout(() => { heartEl.classList.remove("heartbeat"); }, 1000)) : "";
+        }
         
          const userIndex = post.likes.findIndex((like) => like.name === user.name);
 
@@ -69,6 +66,10 @@ export function initLikeButtons(posts, user, addLike, removeLike) {
 
         // Изменить путь к изображению лайка
         const likeImageElement = postEl.querySelector(".like-button img");
+        likeImageElement.style = "transform: scale(1.1)";
+        setTimeout(() => {
+          likeImageElement.style.transform = "scale(1)";
+        }, 100);
         likeImageElement.src = `./assets/images/${post.isLiked ? "like-active.svg" : "like-not-active.svg"}`;
 
         if (post.isLiked) {

@@ -1,35 +1,71 @@
 /* анимация для лайка */
 
-@-webkit-keyframes puff-in-center {
-  0% {
-    -webkit-transform: scale(2);
-            transform: scale(2);
-    -webkit-filter: blur(4px);
-            filter: blur(4px);
-    opacity: 0;
-  }
-  100% {
+@-webkit-keyframes heartbeat {
+  from {
     -webkit-transform: scale(1);
             transform: scale(1);
-    -webkit-filter: blur(0px);
-            filter: blur(0px);
-    opacity: 1;
+    -webkit-transform-origin: center center;
+            transform-origin: center center;
+    -webkit-animation-timing-function: ease-out;
+            animation-timing-function: ease-out;
+  }
+  10% {
+    -webkit-transform: scale(0.91);
+            transform: scale(0.91);
+    -webkit-animation-timing-function: ease-in;
+            animation-timing-function: ease-in;
+  }
+  17% {
+    -webkit-transform: scale(0.98);
+            transform: scale(0.98);
+    -webkit-animation-timing-function: ease-out;
+            animation-timing-function: ease-out;
+  }
+  33% {
+    -webkit-transform: scale(0.87);
+            transform: scale(0.87);
+    -webkit-animation-timing-function: ease-in;
+            animation-timing-function: ease-in;
+  }
+  45% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    -webkit-animation-timing-function: ease-out;
+            animation-timing-function: ease-out;
   }
 }
-@keyframes puff-in-center {
-  0% {
-    -webkit-transform: scale(2);
-            transform: scale(2);
-    -webkit-filter: blur(4px);
-            filter: blur(4px);
-    opacity: 0;
-  }
-  100% {
+@keyframes heartbeat {
+  from {
     -webkit-transform: scale(1);
             transform: scale(1);
-    -webkit-filter: blur(0px);
-            filter: blur(0px);
-    opacity: 1;
+    -webkit-transform-origin: center center;
+            transform-origin: center center;
+    -webkit-animation-timing-function: ease-out;
+            animation-timing-function: ease-out;
+  }
+  10% {
+    -webkit-transform: scale(0.91);
+            transform: scale(0.91);
+    -webkit-animation-timing-function: ease-in;
+            animation-timing-function: ease-in;
+  }
+  17% {
+    -webkit-transform: scale(0.98);
+            transform: scale(0.98);
+    -webkit-animation-timing-function: ease-out;
+            animation-timing-function: ease-out;
+  }
+  33% {
+    -webkit-transform: scale(0.87);
+            transform: scale(0.87);
+    -webkit-animation-timing-function: ease-in;
+            animation-timing-function: ease-in;
+  }
+  45% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    -webkit-animation-timing-function: ease-out;
+            animation-timing-function: ease-out;
   }
 }
 /* ------------------------------------------------- */
@@ -131,6 +167,7 @@
   padding-bottom: 5px;
   cursor: pointer;
   text-align: left;
+  transition: transform 1s ease;
 }
 
 .user-name {
@@ -245,7 +282,6 @@
   position: absolute;
   top: calc(50% - 40px);
   left: calc(50% - 40px);
-  transform: translate(-50%, -50%);
   filter: drop-shadow(0px 20px 40px rgba(0, 0, 0, 0.7));
   transform-origin: center center;
   width: 0px;
@@ -254,9 +290,9 @@
   fill: red;
 }
 
-.puff-in-center {
-	-webkit-animation: puff-in-center 0.7s cubic-bezier(0.470, 0.000, 0.745, 0.715) both;
-	        animation: puff-in-center 0.7s cubic-bezier(0.470, 0.000, 0.745, 0.715) both;
+.heartbeat {
+	-webkit-animation: heartbeat 1.5s ease-in-out infinite both;
+	        animation: heartbeat 1.5s ease-in-out infinite both;
           width: 80px;
 }
 

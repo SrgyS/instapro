@@ -7,14 +7,20 @@ import { addLike, removeLike, deletePost } from "../api.js";
 export function  renderUserPostsPageComponent({appEl}) {
     console.log("Актуальный список постов:", posts);
 
+    const firstPostIndex = 0;
+
     const postsHTML = posts
-    .map((post) => {
+    .map((post, index) => {
       const likedUserNames = post.likes.map(like => like.name)
-      return `  <li class="post">
-      <div class="post-header" data-user-id="${post.user.id}">
-          <img src="${post.user.imageUrl}" class="posts-user-header__user-image">
-          <p class="post-header__user-name">${post.user.name}</p>
-      </div>
+      const postHeaderHtml =
+        index === firstPostIndex
+          ? `<div class="post-header" data-user-id="${post.user.id}">
+              <img src="${post.user.imageUrl}" class="posts-user-header__user-image">
+              <p class="post-header__user-name">${post.user.name}</p>
+            </div>`
+          : "";
+      return `<li class="post">
+      ${postHeaderHtml}
       <div class="post-image-container">
       <img class="heart heart-like" src="./assets/images/heart-like.svg" alt="heart">
         <img class="post-image" src="${post.imageUrl}">
